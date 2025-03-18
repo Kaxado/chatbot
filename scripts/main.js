@@ -1,3 +1,5 @@
+import config from './config.js';
+
 // Éléments du DOM
 const chatMessages = document.getElementById('chat-messages');
 const userInput = document.getElementById('user-input');
@@ -32,6 +34,40 @@ function addMessage(content, isUser = false) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+// Fonction pour envoyer un message à l'API
+async function sendToAPI(message) {
+    try {
+        const response = await fetch(config.API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${config.API_KEY}`,
+                'HTTP-Referer': window.location.origin,
+                'X-Title': 'Mon Chatbot'
+            },
+            body: JSON.stringify({
+                model: config.MODEL,
+                messages: [
+                    {
+                        role: 'user',
+                        content: message
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erreur API: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (error) {
+        console.error('Erreur:', error);
+        return "Désolé, j'ai rencontré une erreur. Pouvez-vous réessayer ?";
+    }
+}
+
 // Fonction pour envoyer un message
 async function sendMessage() {
     const message = userInput.value.trim();
@@ -42,10 +78,19 @@ async function sendMessage() {
     userInput.value = '';
     userInput.style.height = 'auto';
 
-    // Simuler une réponse du bot (à remplacer par l'appel API)
-    setTimeout(() => {
-        addMessage("Je suis désolé, mais je ne suis pas encore connecté à une API de chat. Cette fonctionnalité sera bientôt disponible !");
-    }, 1000);
+    // Désactiver le bouton d'envoi pendant la requête
+    sendButton.disabled = true;
+
+    try {
+        // Envoyer le message à l'API
+        const response = await sendToAPI(message);
+        addMessage(response);
+    } catch (error) {
+        addMessage("Désolé, j'ai rencontré une erreur. Pouvez-vous réessayer ?");
+    } finally {
+        // Réactiver le bouton d'envoi
+        sendButton.disabled = false;
+    }
 }
 
 // Événements
