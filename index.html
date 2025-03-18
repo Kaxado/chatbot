@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Chatbot</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Mon Chatbot</h1>
+            <button id="theme-toggle">🌙</button>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <!-- Les messages seront ajoutés ici dynamiquement -->
+        </div>
+
+        <div class="chat-input-container">
+            <textarea 
+                id="user-input" 
+                placeholder="Écrivez votre message ici..."
+                rows="1"
+            ></textarea>
+            <button id="send-button">Envoyer</button>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html> 
