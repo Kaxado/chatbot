@@ -1,5 +1,18 @@
 # Fichiers d'environnement
 .env
+.env.local
+.env.*.local
+
+# Dépendances
+node_modules/
+
+# Fichiers de build
+dist/
+build/
+
+# Fichiers de logs
+*.log
+npm-debug.log*
 
 # Fichiers système
 .DS_Store

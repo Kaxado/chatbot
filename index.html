@@ -7,27 +7,21 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>Mon Chatbot</h1>
-            <button id="theme-toggle">🌙</button>
-        </div>
-        
-        <div class="chat-messages" id="chat-messages">
-            <!-- Les messages seront ajoutés ici dynamiquement -->
-        </div>
-
-        <div class="chat-input-container">
-            <textarea 
-                id="user-input" 
-                placeholder="Écrivez votre message ici..."
-                rows="1"
-            ></textarea>
-            <button id="send-button">Envoyer</button>
+    <div class="container">
+        <div class="chat-container">
+            <header class="chat-header">
+                <h1>Mon Chatbot</h1>
+                <button id="theme-toggle" aria-label="Changer le thème" aria-pressed="false">🌙</button>
+            </header>
+            <div class="messages" id="chat-messages">
+                <div class="loading-indicator" id="loading-indicator">En train de réfléchir</div>
+            </div>
+            <div class="input-container">
+                <textarea id="user-input" placeholder="Écrivez votre message ici..." rows="1"></textarea>
+                <button class="send-button" id="send-button">Envoyer</button>
+            </div>
         </div>
     </div>
-
-    <script type="module" src="scripts/config.js"></script>
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html> 
